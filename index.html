@@ -6,7 +6,7 @@
   <title>Halaman Profil</title>
   <style>
     :root{
-      --bg: #FDEBD0; /* ganti warna background di sini */
+      --bg: #FDEBD0;
       --card-bg: rgba(255,255,255,0.9);
       --accent: #2b6cb0;
       --muted: #555;
@@ -36,7 +36,7 @@
     }
 
     .profile-photo{
-      width: clamp(150px, 36vw, 260px); /* responsive ukuran "pas" */
+      width: clamp(150px, 36vw, 260px);
       height: clamp(150px, 36vw, 260px);
       object-fit: cover;
       border-radius: 12px;
@@ -45,76 +45,107 @@
       box-shadow: 0 6px 18px rgba(0,0,0,0.12);
     }
 
-    .name{
-      margin: 0 0 10px 0;
-      font-weight:600;
-      font-size: 1.05rem;
-    }
-
     .links{
       list-style:none;
       padding:0;
-      margin: 8px 0 0 0;
+      margin:8px 0 0 0;
     }
-
-    .links li{
-      margin: 8px 0;
-    }
-
+    .links li{margin:8px 0;}
     .links a{
       display:inline-block;
-      width: 100%;
-      max-width: 320px;
-      padding: 10px 14px;
-      text-decoration: none;
-      border-radius: 10px;
-      border: 1px solid rgba(0,0,0,0.06);
-      background: transparent;
-      color: var(--accent);
+      width:100%;
+      max-width:320px;
+      padding:10px 14px;
+      text-decoration:none;
+      border-radius:10px;
+      border:1px solid rgba(0,0,0,0.06);
+      background:transparent;
+      color:var(--accent);
       font-weight:600;
-      transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+      transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
     }
-
     .links a:hover{
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(43,108,176,0.08);
-      background: rgba(43,108,176,0.06);
+      transform:translateY(-3px);
+      box-shadow:0 8px 20px rgba(43,108,176,0.08);
+      background:rgba(43,108,176,0.06);
     }
 
-    .links a.text-only{
-      background: none;
-      border: none;
-      padding: 6px 0;
-      color: var(--muted);
-      font-weight:500;
-      transform:none;
-      box-shadow:none;
+    /* --- Modal video --- */
+    #videoModal{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.7);
+      display:none;
+      justify-content:center;
+      align-items:center;
+      z-index:999;
     }
-    .links a.text-only:hover{
-      color: var(--accent);
-      background: none;
-      text-decoration: underline;
+    #videoModal video{
+      width:90%;
+      max-width:720px;
+      border-radius:12px;
+      background:#000;
     }
-
-    @media (max-width:360px){
-      .card{padding:18px}
+    #videoModal .close-btn{
+      position:absolute;
+      top:20px;
+      right:30px;
+      font-size:2rem;
+      color:#fff;
+      cursor:pointer;
+      user-select:none;
     }
   </style>
 </head>
 <body>
-  <main class="card" role="main" aria-labelledby="p-name">
-    <!-- memakai raw github URL agar gambar tampil -->
+  <main class="card">
     <img class="profile-photo"
          src="https://raw.githubusercontent.com/laoarfa-dotcom/Ucipelor/main/ucipelor-www.jpg"
-         alt="ucipelor-www.jpg" />
+         alt="Foto Saya" />
 
-    <h1 id="p-name" class="name">Viral Barukang 5</h1>
+    <h1 class="name">Nama Kamu (opsional)</h1>
 
-    <ul class="links" aria-label="Tautan utama">
-      <li><a href="#link1" id="link1">Pagosi 1</a></li>
-      <li><a href="#link2" id="link2">Pagosi 2</a></li>
-      <li><a href="#link3" id="link3">Pagosi 3</a></li>
+    <ul class="links">
+      <!-- Link1 tidak langsung menuju URL, tapi memicu modal -->
+      <li><a href="#" id="showVideo">Link1</a></li>
+      <li><a href="#link2">Link2</a></li>
+      <li><a href="#link3">Link3</a></li>
     </ul>
   </main>
+
+  <!-- Modal Video -->
+  <div id="videoModal">
+    <span class="close-btn" id="closeVideo">&times;</span>
+    <video id="videoPlayer" controls>
+      <source src="https://raw.githubusercontent.com/laoarfa-dotcom/Ucipelor/main/media/ramli-1.mp4" type="video/mp4">
+      Browser kamu tidak mendukung pemutar video.
+    </video>
+  </div>
+
+  <script>
+    const showBtn = document.getElementById('showVideo');
+    const modal   = document.getElementById('videoModal');
+    const closeBtn= document.getElementById('closeVideo');
+    const player  = document.getElementById('videoPlayer');
+
+    showBtn.addEventListener('click', e=>{
+      e.preventDefault();
+      modal.style.display='flex';
+      player.play();
+    });
+
+    closeBtn.addEventListener('click', ()=>{
+      player.pause();
+      modal.style.display='none';
+    });
+
+    // Tutup modal bila klik di luar video
+    modal.addEventListener('click', e=>{
+      if(e.target===modal){
+        player.pause();
+        modal.style.display='none';
+      }
+    });
+  </script>
 </body>
 </html>
