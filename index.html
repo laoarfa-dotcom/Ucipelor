@@ -81,7 +81,6 @@
       background: rgba(43,108,176,0.06);
     }
 
-    /* versi link tipis (text only) */
     .links a.text-only{
       background: none;
       border: none;
@@ -97,7 +96,6 @@
       text-decoration: underline;
     }
 
-    /* kecilkan di layar sangat sempit */
     @media (max-width:360px){
       .card{padding:18px}
     }
@@ -105,13 +103,13 @@
 </head>
 <body>
   <main class="card" role="main" aria-labelledby="p-name">
-    <!-- Ganti src ke file fotomu -->
-    <img class="profile-photo" src="your-photo.jpg" alt="Foto Saya" />
+    <!-- memakai raw github URL agar gambar tampil -->
+    <img class="profile-photo"
+         src="https://raw.githubusercontent.com/laoarfa-dotcom/Ucipelor/main/ucipelor-www.jpg"
+         alt="ucipelor-www.jpg" />
 
-    <!-- opsional: nama atau teks singkat -->
     <h1 id="p-name" class="name">Nama Kamu (opsional)</h1>
 
-    <!-- 3 opsi tulisan yang dapat diklik (ganti href sesuai tujuan) -->
     <ul class="links" aria-label="Tautan utama">
       <li><a href="#link1" id="link1">Link1</a></li>
       <li><a href="#link2" id="link2">Link2</a></li>
